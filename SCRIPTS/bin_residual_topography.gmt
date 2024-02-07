@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# bin residual topography (crust only and with lithosphere correction)
+# carry out geoid correction
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# input residual topography (raw)
+res_topo_data="../OUTPUT_DATA_T_DEPENDENT/crust_only.dat"
+
+# weighting of data without velocity profiles
+# make weight one if using proper error propagation for densities
+Hk_weight="1"
+
+# cutoff value (remove obvious outliers before binning)
+#max_res_topo=2.75
+#min_res_topo=-2.75
+
+# geoid correction file
+#geoid="/Users/eart0518/Work/GLOBAL_DYN_TOPO/RESIDUAL_DEPTH/HYDROSTATIC_CORRECTION/GRIDS/geoid_chambat_corrected.grd"
+
+# output directory for binned data
+#binned="../BINNED_RESIDUAL_TOPO"
+binned="../BINNED_RESIDUAL_TOPO_T_DEPENDENT"
+
+# excision polygons
+poly_file="excision_polys_combined.ll"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+rgn="-Rg"
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# binning programme
+
+bin_res_topo () {
+   
+   # get binned residual topography
+   awk '{if (NR>1) print $2, $3, $14, $16}'  $res_topo_data | \
+      awk -v w=$Hk_weight '{if ($5=="nan" && $6=="nan") print $1, $2, $3, (1/($4**2))*Hk_weight;
+                           else print $1, $2, $3, (1/($4**2))}' | \
+      gmt gmtselect -F$poly_file -If -fg | \
+      gmt blockmean $rgn -I$I -W | \
+      #gmt grdtrack -G$geoid | \
+      awk '{print $1, $2, $3+($5/1000), sqrt(1/$4)}' > temp/l_l_er_err.temp
+
+   # get binned crustal thickness (weighted by residual topo error)
+   awk '{if (NR>1) print $2, $3, $4, $16}'  $res_topo_data | \
+      awk -v w=$Hk_weight '{if ($5=="nan" && $6=="nan") print $1, $2, $3, (1/($4**2))*Hk_weight;
+                           else print $1, $2, $3, (1/($4**2))}' | \
+      gmt gmtselect -F$poly_file -If -fg | \
+      gmt blockmean $rgn -I$I -W | \
+      #gmt grdtrack -G$geoid | \
+      awk '{print $1, $2, $3+($5/1000), sqrt(1/$4)}' > temp/l_l_tc_err.temp
+   
+   # write to file [lon lat tc er error]
+   paste temp/l_l_er_err.temp temp/l_l_tc_err.temp | \
+      awk '{print $1, $2, $7, $3, $4}' > $binned/binned_${type}_${I}_degrees.dat
+   
+   # get mean of whole database
+   mean=$(awk '{x+=$4; next} END{print x/NR}' $binned/binned_${type}_${I}_degrees.dat)
+   stdev=$(awk '{sum+=$4; array[NR]=$4} END {for(x=1;x<=NR;x++)
+            {sumsq+=((array[x]-(sum/NR))**2);}print sqrt(sumsq/NR)}' $binned/binned_${type}_${I}_degrees.dat)
+   median=$(sort -nk4 $binned/binned_${type}_${I}_degrees.dat | awk ' { a[i++]=$4; }
+    END { x=int((i+1)/2); if (x < (i+1)/2) print (a[x-1]+a[x])/2; else print a[x-1]; }')
+   
+   # write to file [lon lat tc er error]
+   paste temp/l_l_er_err.temp temp/l_l_tc_err.temp | \
+      awk '{if ($7>40) print $1, $2, $7, $3, $4}' > temp/binned_${type}_${I}_degrees.temp
+
+   # get mean on thick crust
+   mean_thick=$(awk '{x+=$4; next} END{print x/NR}' temp/binned_${type}_${I}_degrees.temp)
+   stdev_thick=$(awk '{sum+=$4; array[NR]=$4} END {for(x=1;x<=NR;x++)
+                 {sumsq+=((array[x]-(sum/NR))**2);}print sqrt(sumsq/NR)}' temp/binned_${type}_${I}_degrees.temp)
+   median_thick=$(sort -nk4 temp/binned_${type}_${I}_degrees.temp | awk ' { a[i++]=$4; }
+    END { x=int((i+1)/2); if (x < (i+1)/2) print (a[x-1]+a[x])/2; else print a[x-1]; }')
+   
+   echo "mean residual topography for $type in $I degree bins..."
+   echo "  -- mean = $mean +/- $stdev km"
+   echo "  -- median = $median km"
+   echo "for only crust thicker than 40 km..."
+   echo "  -- mean = $mean_thick +/- $stdev_thick km"
+   echo "  -- median = $median_thick km"
+   
+   
+   echo " "
+
+   rm temp/*.temp
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# whole crust 1--4 degrees
+type="whole_crust"
+
+I=1
+bin_res_topo
+
+I=2
+bin_res_topo
+
+I=3
+bin_res_topo
+
+I=4
+bin_res_topo
+
+
+exit
+
+# ~~~~~~~~~~~~~~~~~~~~~
+
+# whole plate 1--4 degrees
+type="whole_plate"
+
+I=1
+bin_res_topo
+
+I=2
+bin_res_topo
+
+I=3
+bin_res_topo
+
+I=4
+bin_res_topo
