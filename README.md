@@ -83,6 +83,10 @@ The `SCRIPTS/` directory contains useful processing and plotting routines.
 
 `bin_residual_topography.gmt` contains a shell or `gmt` script to average residual topography into $1\times1$ degree bins and then calculate some useful statistics on the binned results.
 
-#### excision polygons
+#### Excision polygons
 
 `excision_polys_combined.ll` contains polygons to mask out parts of the world where flexure or orogenesis may be a significant control on topography.
+
+## License
+
+The package is distributed under an MIT license.
