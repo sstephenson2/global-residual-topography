@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: If you use this database, please cite it as below.
+authors:
+  - family-names: Stephenson
+    given-names: Simon N.
+  - family-names: Hoggard
+    given-names: Mark J.
+  - family-names: Holdt
+    given-names: Megan C.
+  - family-names: Nicky
+    given-names: White
+title: Global Residual Topography
+version: v1.0.0
+doi: https://doi.org/10.5281/zenodo.10019081
+date-released: 2024-02-07
+abstract: A database of global estimates of residual topgoraphy
+  after correcting for crustal thickness and density variations.
