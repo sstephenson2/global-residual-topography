@@ -1,6 +1,6 @@
 # Globl Residual Topography
 
-This repository contains estimates of global residual, topgoraphy after correcting elevation for
+This repository contains estimates of global residual, topography after correcting elevation for
 crustal thickness and density variations.  It constitutes the results of Stephenson _et al._ (2024).
 Method description can be found in that paper, while crustal thickness database is [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST), and crustal density calculations are carried out using [`SMV2rho`](https://github.com/sstephenson2/SMV2rho).
 
@@ -11,11 +11,13 @@ The `BINNED_RESIDUAL_ELEVATION/` directory contains data where the residual topo
 
 The data is organized into the following columns:
 
-- `lon`: Longitude
-- `lat`: Latitude
-- `moho_depth`: Depth of the Mohorovičić discontinuity (the boundary between the Earth's crust and mantle)
-- `residual_elevation`: Residual elevation
-- `residual_elevation_error`: Error in the residual elevation
+| Column Name | Description |
+| --- | --- |
+| `lon` | Longitude |
+| `lat` | Latitude |
+| `t_c` | Depth of the Mohorovičić discontinuity (the boundary between the Earth's crust and mantle) |
+| `residual_elevation` | Residual elevation |
+| `residual_elevation_error` | Error in the residual elevation |
 
 ## Pointwise residual topographic estimates
 
