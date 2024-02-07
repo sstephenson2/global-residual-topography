@@ -21,7 +21,7 @@ The data is organized into the following columns:
 
 ## Pointwise residual topographic estimates
 
-The `POINTWISE_RESIDUAL_ELEVATION/` directory contains station-by-station residual topgoraphic estimates with uncertainties and all geophysical parameters.  The structure is as follows:
+The `POINTWISE_RESIDUAL_ELEVATION/` directory contains station-by-station residual topgoraphic estimates with uncertainties.  IIt also contains geophysical parameters exracted locally to the station from global grids.  The structure is as follows:
 
 | Column Name | Description |
 | --- | --- |
@@ -35,7 +35,7 @@ The `POINTWISE_RESIDUAL_ELEVATION/` directory contains station-by-station residu
 | `ETOPO` | Topographic elevation. |
 | `ETOPO_filt_30km` | Topographic elevation filtered for wavelengths > 30 km. |
 | `tl` | Lithospheric thickness taken from Hoggard _et al._ (2021) at the station. |
-| `long_lam_grav` | Free air gravity anomaly at the station. |
+| `long_lam_grav` | Long-wavelength free air gravity anomaly at the station. |
 | `thickness_correction` | Crustal thickness correction |
 | `density_correction` | Crustal density correction |
 | `residual_topography` | Residual topographic estimate |
@@ -51,7 +51,7 @@ extracted locatlly from various grids at the site of each data point.
 
 #### Crustal database
 
-This data file `station_lon_lat_vp_vs_rho_topo_filt_lith_grav_all_onshore.dat` contains pointwise crustal thickness, velocity and density estimates geophysical parameters extracted locally from various grids at each data point.  Velocity and density is taken from `SeisCruST` and `SMV2rho`.  Please refer to documentation for these packages for more information. The columns in the file are described as follows:
+This data file `station_lon_lat_vp_vs_rho_topo_filt_lith_grav_all_onshore.dat` contains pointwise crustal thickness, velocity and density estimates as well as geophysical parameters extracted locally from various grids at each data point.  Velocity and density is taken from `SeisCruST` and `SMV2rho`.  Please refer to documentation for these packages for more information. The columns in the file are described as follows:
 
 | Column Name | Description |
 | --- | --- |
@@ -65,7 +65,7 @@ This data file `station_lon_lat_vp_vs_rho_topo_filt_lith_grav_all_onshore.dat` c
 | `ETOPO` | Topographic elevation. |
 | `ETOPO_filt_30km` | Topographic elevation filtered for wavelengths > 30 km. |
 | `tl` | Lithospheric thickness taken from Hoggard _et al._ (2021) at the station. |
-| `long_lam_grav` | Free air gravity anomaly at the station. |
+| `long_lam_grav` | Long-wavelength free air gravity anomaly at the station. |
 
 #### Sea level reference model
 
@@ -77,12 +77,12 @@ The `SCRIPTS/` directory contains useful processing and plotting routines.
 
 #### Residual topography calculation notebook
 
-`calc_residual_topography_crust_only.ipynb` contains a notebook to calculate continental residual topography.  it alo contains some useful plots and provcessing to remove outliers that are fully described in Stephenson _et al._ (2024).
+`calc_residual_topography_crust_only.ipynb` contains a notebook to calculate continental residual topography.  It also contains some useful plots and processing to remove outliers that are fully described in Stephenson _et al._ (2024).
 
 #### Residual topography binning
 
-`bin_residual_topography.gmt` contains a shell or `gmt` script to average residual topography into $1\times1$ degree bins and then calculate some useful statistics.
+`bin_residual_topography.gmt` contains a shell or `gmt` script to average residual topography into $1\times1$ degree bins and then calculate some useful statistics on the binned results.
 
 #### excision polygons
 
-`excision_polys_combined.ll` contains polygons to mask out parts of theworld where flexure or orogenesis my be a significant control on topography.
+`excision_polys_combined.ll` contains polygons to mask out parts of the world where flexure or orogenesis may be a significant control on topography.
