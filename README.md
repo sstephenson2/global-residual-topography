@@ -4,6 +4,10 @@ This repository contains estimates of global residual, topography after correcti
 crustal thickness and density variations.  It constitutes the results of Stephenson _et al._ (2024).
 Method description can be found in that paper, while crustal thickness database is [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST), and crustal density calculations are carried out using [`SMV2rho`](https://github.com/sstephenson2/SMV2rho).
 
+## NOTE
+
+Crustal thickness estimates are taken from a large database of estimates of crustal thickness and velocity determined by a variety of seismic experiments.  If using the crustal thickness, velocity or density information provided here, it is imperative that the user refer to the documentation in `SeisCruST` and properly reference both that package and the individual authors whose work is included in the compilation.
+
 
 ## Binned residual topographic estimates
 
