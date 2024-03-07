@@ -1,12 +1,12 @@
-# Globl Residual Topography
+# Global Continental Residual Topography
 
-This repository contains estimates of global residual, topography after correcting elevation for
+This repository contains estimates of global residual topography after correcting elevation for
 crustal thickness and density variations.  It constitutes the results of Stephenson _et al._ (2024).
-Method description can be found in that paper, while crustal thickness database is [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST), and crustal density calculations are carried out using [`SMV2rho`](https://github.com/sstephenson2/SMV2rho).
+A full methodological description can be found in that paper.  '_Residual topography_' is topography supported by mantle buoyancy structure after having crustal isostatic topography removed.  The crustal thickness database used to calculate these reisudal topographic estimates is [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST), a global seismic crustal thickness and structure database.  Crustal density calculations are carried out using [`SMV2rho`](https://github.com/sstephenson2/SMV2rho), a package designed to estimate cotinental crustal density from seismic velocity profiles.
 
 ## NOTE
 
-Crustal thickness estimates are taken from a large database of estimates of crustal thickness and velocity determined by a variety of seismic experiments.  If using the crustal thickness, velocity or density information provided here, it is imperative that the user refer to the documentation in `SeisCruST` and properly reference both that package and the individual authors whose work is included in the compilation.
+Crustal thickness estimates are taken from a large database of estimates of crustal thickness and velocity determined by a variety of seismic experiments.  If using the crustal thickness, velocity or density information provided here, it is imperative that the user refer to the documentation in [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST) and properly reference both that package and the individual authors whose work is included in the compilation.
 
 
 ## Binned residual topographic estimates
@@ -50,12 +50,11 @@ The `POINTWISE_RESIDUAL_ELEVATION/` directory contains station-by-station residu
 
 ## Input crustal files
 
-Located in `INPUT_CRUST_FILES/`.  Here the input crustal thickness and density data can be found, as well as several other geophysical parameters
-extracted locatlly from various grids at the site of each data point.
+Located in `INPUT_CRUST_FILES/`.  Here the input crustal thickness and density data can be found, as well as several other geophysical parameters extracted locally from various grids at the site of each data point.
 
 #### Crustal database
 
-This data file `station_lon_lat_vp_vs_rho_topo_filt_lith_grav_all_onshore.dat` contains pointwise crustal thickness, velocity and density estimates as well as geophysical parameters extracted locally from various grids at each data point.  Velocity and density is taken from `SeisCruST` and `SMV2rho`.  Please refer to documentation for these packages for more information. The columns in the file are described as follows:
+This data file `station_lon_lat_vp_vs_rho_topo_filt_lith_grav_all_onshore.dat` contains pointwise crustal thickness, velocity and density estimates as well as geophysical parameters extracted locally from various grids at each data point.  Velocity and density is taken from [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST) and [`SMV2rho`](https://github.com/sstephenson2/SMV2rho).  Please refer to documentation for these packages for more information. The columns in the file are described as follows:
 
 | Column Name | Description |
 | --- | --- |
