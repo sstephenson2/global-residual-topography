@@ -4,10 +4,12 @@ This repository contains estimates of global residual topography after correctin
 crustal thickness and density variations.  It constitutes the results of Stephenson _et al._ (2024).
 A full methodological description can be found in that paper.  '_Residual topography_' is topography supported by mantle buoyancy structure after having crustal isostatic topography removed.  The crustal thickness database used to calculate these reisudal topographic estimates is [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST), a global seismic crustal thickness and structure database.  Crustal density calculations are carried out using [`SMV2rho`](https://github.com/sstephenson2/SMV2rho), a package designed to estimate cotinental crustal density from seismic velocity profiles.
 
-## NOTE
+<div style="background-color:#ffffcc; padding: 10px; border: 1px solid black; margin-bottom: 20px;">
+<strong>NOTE</strong>
 
 Crustal thickness estimates are taken from a large database of estimates of crustal thickness and velocity determined by a variety of seismic experiments.  If using the crustal thickness, velocity or density information provided here, it is imperative that the user refer to the documentation in [`SeisCruST`](https://github.com/sstephenson2/SeisCRUST) and properly reference both that package and the individual authors whose work is included in the compilation.
 
+</div>
 
 ## Binned residual topographic estimates
 
